@@ -39,7 +39,7 @@
                     <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>Sign In</a>
                         <ul id='dropdown1' class='dropdown-content mild-transparent'>
                             <li><a href="admin/chef_reg.php" class="white-text drop-hover">Chef</a></li>
-                            <li><a href="#!" class="white-text drop-hover">User</a></li>
+                            <li><a href="user_reg.php" class="white-text drop-hover">User</a></li>
                         </ul>
                     </li>
                     <li><a href="#">About Us</a></li>

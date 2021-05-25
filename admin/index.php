@@ -2,6 +2,7 @@
 include('../config/db_connect.php');
 session_start();
 $_SESSION['user_id'] = "";
+$_SESSION['chef_id'] = "";
 $user_name = $user_password = "";
 $user_name_error = $user_password_error = "";
 if (isset($_POST['login'])) {
@@ -18,21 +19,23 @@ if (isset($_POST['login'])) {
         $user_password_error = "Password is >= 8 characters";
     }
     if (empty($user_name_error) && empty($user_password_error)) {
-        // $sql = "SELECT * FROM users WHERE user_name=\"'$user_name'\"";
-        $result = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$user_name'");
-        $user = mysqli_fetch_assoc($result);
-        // print_r($user);
+        $result1 = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$user_name'");
+        $chef = mysqli_fetch_assoc($result1);
+        if ($chef) {
+            $_SESSSION["chef_id"] = $chef['chef_id'];
+            echo "found in chef";
+        } 
+        $result2 = mysqli_query($conn, "SELECT * FROM user WHERE user_mail='$user_name'");
+        $user = mysqli_fetch_assoc($result2);
         if ($user) {
-            if ($user['chef_password'] != $user_password) {
-                $user_password_error = "Incorrect password";
-            }
-        } else {
+            $_SESSSION["user_id"] = $user['user_id'];
+            echo "found in user";
+        } 
+        if(!$user && !$chef){
             $user_name_error = "Username not found";
+            
         }
-        if (empty($user_name_error) && empty($user_password_error)) {
-            $_SESSION['user_id'] = $user['user_id'];
-            header("Location: ../index.php");
-        }
+        
     }
 }
 
@@ -78,7 +81,7 @@ if (isset($_POST['login'])) {
         .suffix {
             position: absolute;
             float: right;
-            right: 0 !important;
+            right: 1rem !important;
             top: 1rem;
         }
 
@@ -118,7 +121,7 @@ if (isset($_POST['login'])) {
             <br>
             <div class="row">
                 <div class="container col s8 offset-s2">
-                    <form action="login.php" method="POST">
+                    <form action="index.php" method="POST">
                         <div class="input-field">
                             <input type="text" id="_user_name" name="_user_name" value="<?php echo htmlspecialchars($user_name) ?>">
                             <label for="_user_name" class="active">Enter Email id</label>

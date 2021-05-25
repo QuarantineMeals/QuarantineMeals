@@ -121,11 +121,11 @@ if (isset($_POST['chef_reg'])) {
         if (!empty($dinner)) {
             $meal_option .= 'dinner';
         }
-        $sql = "INSERT INTO chef (chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
+        $sql = "INSERT INTO chef (chef_pasword,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password',$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
         $result = mysqli_query($conn, $sql);
-        $chef_id_r = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$chef_mail'");
-        $chef_id = mysqli_fetch_assoc($chef_id_r);
-        $_SESSION['chef_id'] = $chef_id['chef_id'];
+        // $chef_id_r = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$chef_mail'");
+        // $chef_id = mysqli_fetch_assoc($chef_id_r);
+        // $_SESSION['chef_id'] = $chef_id['chef_id'];
         header('Location: ../admin');
     }
 }
@@ -175,7 +175,7 @@ if (isset($_POST['chef_reg'])) {
         .suffix {
             position: absolute;
             float: right;
-            right: 0 !important;
+            right: 1rem !important;
             top: 1rem;
         }
 
@@ -202,6 +202,8 @@ if (isset($_POST['chef_reg'])) {
                         <label for="chef_number">Enter your Mobile-number</label>
                         <div class="red-text"><?php echo htmlspecialchars($chef_number_error) ?></div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12 m6">
                         <input type="text" id="chef_city" name="chef_city" value="<?php echo htmlspecialchars($chef_city) ?>">
                         <label for="chef_city">Enter your City</label>
@@ -212,6 +214,8 @@ if (isset($_POST['chef_reg'])) {
                         <label for="chef_address">Enter your Address</label>
                         <div class="red-text"><?php echo htmlspecialchars($chef_address_error) ?></div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s12 m6">
                         <input type="text" id="chef_mail" name="chef_mail" value="<?php echo htmlspecialchars($chef_mail) ?>">
                         <label for="chef_mail">Enter your Email</label>
@@ -224,9 +228,6 @@ if (isset($_POST['chef_reg'])) {
                         <label for="chef_password" class="active">Enter Password</label>
                         <div class="red-text">
                             <?php echo $chef_password_error ?>
-                        </div>
-                        <div class="input-field col s12 m2">
-                            <input type="hidden" class="hidden">
                         </div>
                     </div>
                     <div class="row">
