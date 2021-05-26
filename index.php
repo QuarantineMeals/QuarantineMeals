@@ -8,14 +8,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quarantine Meals</title>
-
+    <title>QuarantineMeals</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -28,10 +24,10 @@
 </head>
 
 <body>
-    <header>
+    <header id="index-header">
         <nav>
             <div class="nav-wrapper">
-                <img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo">
+                <img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo" id="logo">
                 <ul class="right valign-wrapper">
                     <li><a href="#">Covid - 19</a></li>
                     <li><a href="#">Our Chefs</a></li>
@@ -48,7 +44,7 @@
         </nav>
 
 
-        <div class="container left">
+        <div class="index-container left">
             Need comforting home-cooked foods during this covid time?<br>
             Our chefs provide just that.<br><br>
 

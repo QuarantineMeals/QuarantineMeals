@@ -8,34 +8,35 @@ $user_name_error = $user_password_error = "";
 if (isset($_POST['login'])) {
     $user_name = mysqli_real_escape_string($conn, $_POST['_user_name']);
     $user_password = mysqli_real_escape_string($conn, $_POST['_user_password']);
+    
     if (empty($user_name)) {
         $user_name_error = "Please enter UserName";
     } else if (!filter_var($user_name, FILTER_VALIDATE_EMAIL)) {
         $user_name_error = "Invalid email format";
     }
+
     if (empty($user_password)) {
         $user_password_error = "Please Enter password";
     } else if (strlen($user_password) < 8) {
         $user_password_error = "Password is >= 8 characters";
     }
+
     if (empty($user_name_error) && empty($user_password_error)) {
         $result1 = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$user_name'");
         $chef = mysqli_fetch_assoc($result1);
         if ($chef) {
-            $_SESSSION["chef_id"] = $chef['chef_id'];
-            echo "found in chef";
-        } 
+            $_SESSION["chef_id"] = $chef['chef_id'];
+            header('Location: dashboard.php');
+        }
         $result2 = mysqli_query($conn, "SELECT * FROM user WHERE user_mail='$user_name'");
         $user = mysqli_fetch_assoc($result2);
         if ($user) {
-            $_SESSSION["user_id"] = $user['user_id'];
-            echo "found in user";
-        } 
-        if(!$user && !$chef){
-            $user_name_error = "Username not found";
-            
+            $_SESSION["user_id"] = $user['user_id'];
+            header('Location: home.php');
         }
-        
+        if (!$user && !$chef) {
+            $user_name_error = "Username not found";
+        }
     }
 }
 

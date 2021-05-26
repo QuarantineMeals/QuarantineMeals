@@ -45,6 +45,9 @@ if (isset($_POST['chef_reg'])) {
     if (empty($chef_password)) {
         $chef_password_error = "Please enter your password";
         $is_error = true;
+    }else if(strlen($chef_password) < 8){
+        $chef_password_error = "Password must be >= 8 characters";
+        $is_error = true;
     }
 
     if (empty($chef_city)) {

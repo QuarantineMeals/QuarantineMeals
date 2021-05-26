@@ -12,13 +12,12 @@
 nav {
     z-index:99999;
     width: 100%;
-    height: 60px !important;
     background-color: #000  !important;
-    line-height: 80px;
+    /* line-height: 80px; */
     position: fixed;
 }
 
-.brand-logo{
+#logo{
     height:60px !important;
 }
 
@@ -52,20 +51,20 @@ nav img {
 } */
 
 /* Header */
-header {
+#index-header {
     background: url(img/bgimg.jpg);
     background-size: cover;
     background-position: center;
     min-height: 700px;
 }
 
-.container {
-    padding-top: 170px;
+.index-container {
+    padding-top: 100px;
     padding-left: 60px;
     position: relative;
     text-align: center;
     color: white;
-    width: 30%;
+    width: 35%;
     font-size: 32px;
     text-align: left;
     font-family: 'Merienda', cursive;
