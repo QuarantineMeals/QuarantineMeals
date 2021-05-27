@@ -3,7 +3,6 @@
 include('../config/db_connect.php');
 session_start();
 $chef_id = $_SESSION['chef_id'];
-echo $chef_id;
 $error = ['food_name' => '', 'food_desc' => '', 'food_price' => '', 'food_img' => ''];
 
 if (isset($_POST['submit'])) {

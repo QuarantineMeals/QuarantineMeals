@@ -37,7 +37,7 @@ if (isset($_POST['save_changes'])) {
         $img_ex_lc = strtolower($img_ex);
 
         $allowed_exs = array("jpg", "jpeg", "png");
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        $check = getimagesize($_FILES["food_img"]["tmp_name"]);
         if (in_array($img_ex_lc, $allowed_exs)) {
             $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
             $img_upload_path = 'uploads/' . $new_img_name;

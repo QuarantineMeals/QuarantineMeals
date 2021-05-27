@@ -124,12 +124,18 @@ if (isset($_POST['chef_reg'])) {
         if (!empty($dinner)) {
             $meal_option .= 'dinner';
         }
-        $sql = "INSERT INTO chef (chef_pasword,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password',$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
+        $sql = "INSERT INTO chef (chef_password,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password','$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
         $result = mysqli_query($conn, $sql);
+        if($result){
+
+            header('Location: ../admin');
+        }
+        else{
+            echo mysqli_error($conn);
+        }
         // $chef_id_r = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$chef_mail'");
         // $chef_id = mysqli_fetch_assoc($chef_id_r);
         // $_SESSION['chef_id'] = $chef_id['chef_id'];
-        header('Location: ../admin');
     }
 }
 
