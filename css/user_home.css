@@ -10,45 +10,49 @@
 /* Navbar */
 
 nav {
-    z-index:99999;
+    z-index: 99999;
     width: 100%;
     height: 60px !important;
-    background-color: #000  !important;
+    background-color: #000 !important;
     line-height: 80px;
-
 }
 
-.brand-logo{
-    height:60px !important;
-
+.brand-logo {
+    height: 60px !important;
 }
 
-.mild-transparent{
+.mild-transparent {
     background: rgba(0, 0, 0, 0.541) !important;
 }
-.drop-hover:hover{
-    color:black  !important;
+
+.drop-hover:hover {
+    color: black !important;
 }
 
 /* Slider */
-#main{
-    background-color: #ffffff;
+
+#main {
+    background-color: hsl(0, 0%, 100%);
 }
-.showcase-box{
-    width:430px;
+
+.showcase-box {
+    width: 30vw;
     height: 250px;
-    box-shadow: 5px 10px 20px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    margin:0px 20px 10px 20px;
+    box-shadow: 5px 10px 20px hsla(0, 0%, 0%, 0.3);
+    border-radius: 30px;
+    margin: 0px 20px 10px 20px;
     overflow: hidden;
 }
-.showcase-box img{
-    width:100%;
+
+.showcase-box img {
+    width: 30vw;
+    border-radius:30px;
     height: 100%;
     object-fit: cover;
     object-position: top;
 }
-.showcase-heading{
+
+.showcase-heading {
     padding-left: 30px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -59,9 +63,10 @@ nav {
 }
 
 /* Popular Dishes Section */
+/* 
 .card {
     width: 20vw !important;
-}
+} */
 
 .price {
     font-size: 24px;

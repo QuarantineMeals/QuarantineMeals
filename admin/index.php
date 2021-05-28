@@ -8,7 +8,7 @@ $user_name_error = $user_password_error = "";
 if (isset($_POST['login'])) {
     $user_name = mysqli_real_escape_string($conn, $_POST['_user_name']);
     $user_password = mysqli_real_escape_string($conn, $_POST['_user_password']);
-    
+
     if (empty($user_name)) {
         $user_name_error = "Please enter UserName";
     } else if (!filter_var($user_name, FILTER_VALIDATE_EMAIL)) {
@@ -26,13 +26,15 @@ if (isset($_POST['login'])) {
         $chef = mysqli_fetch_assoc($result1);
         if ($chef) {
             $_SESSION["chef_id"] = $chef['chef_id'];
+            $_SESSION["user_id"] = '';
             header('Location: dashboard.php');
         }
         $result2 = mysqli_query($conn, "SELECT * FROM user WHERE user_mail='$user_name'");
         $user = mysqli_fetch_assoc($result2);
         if ($user) {
             $_SESSION["user_id"] = $user['user_id'];
-            header('Location: home.php');
+            $_SESSION['chef_id'] = '';
+            header('Location: ../home.php');
         }
         if (!$user && !$chef) {
             $user_name_error = "Username not found";
