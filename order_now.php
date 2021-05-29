@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-$_SESSION['cur_amt'] = 0;
 include('config/db_connect.php');
 
 if (isset($_GET['chef_id'])) {
@@ -17,11 +16,16 @@ if ($result_for_chef) {
     echo mysqli_error($conn);
 }
 
-$sql_for_food = "SELECT * from food WHERE chef_id='$chef_id'";
+$food = [];
+$sql_for_food = "SELECT * from food WHERE chef_id='$chef_id' ORDER BY food_id";
 $result_for_food = mysqli_query($conn, $sql_for_food);
-$food = mysqli_fetch_all($result_for_food, MYSQLI_ASSOC);
+$foode = mysqli_fetch_all($result_for_food, MYSQLI_ASSOC);
+foreach ($foode as $fe) {
+    $food[$fe['food_id']] = $fe;
+}
+
 if ($result_for_food) {
-    print_r($food);
+    // print_r($food);
 } else {
     echo mysqli_error($conn);
 }
@@ -29,6 +33,34 @@ if ($result_for_food) {
 $meal_options = explode(" ", $chef['meal_option']);
 $delivery_options = explode(" ", $chef['delivery_option']);
 
+if (isset($_POST['re-do_total'])) {
+    $_SESSION['cur_amt'] = 0;
+    $_SESSION['list_of_food'][$_POST['food_id']] = (int)$_POST['food_qty'];
+    $food_ids = array_keys($_SESSION['list_of_food']);
+    foreach ($food_ids as $ids) {
+        $_SESSION['cur_amt'] += $food[$ids]['food_price'] * $_SESSION['list_of_food'][$ids];
+    }
+}
+
+if (isset($_GET['id_to_del'])) {
+    $_SESSION['cur_amt'] = 0;
+    $del_id = mysqli_real_escape_string($conn, $_GET['id_to_del']);
+    unset($_SESSION['list_of_food'][$del_id]);
+    $food_ids = array_keys($_SESSION['list_of_food']);
+    foreach ($food_ids as $ids) {
+        $_SESSION['cur_amt'] += $food[$ids]['food_price'] * $_SESSION['list_of_food'][$ids];
+    }
+}
+
+if(isset($_GET['check_out'])){
+    $check_out = mysqli_real_escape_string($conn, $_GET['check_out']);
+    if($check_out){
+        header('Location: check_out.php');
+    }
+    else{
+        
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +90,7 @@ $delivery_options = explode(" ", $chef['delivery_option']);
             height: 18vmax;
             width: 18vmax;
             object-fit: cover;
-            margin-top: 30vh;
+            margin-top: 17vh;
             margin-left: 10vw;
             border-radius: 50%;
         }
@@ -73,12 +105,34 @@ $delivery_options = explode(" ", $chef['delivery_option']);
             width: 30vmin;
             height: 30vmin !important;
         }
+
+        nav {
+            z-index: 99999;
+            width: 100%;
+            background-color: #000 !important;
+            /* line-height: 80px; */
+        }
+
+        .brand-logo {
+            max-height: 100%;
+        }
     </style>
 </head>
 
 <body>
-
     <header class="order_now_header">
+        <nav>
+            <div class="nav-wrapper ">
+                <img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo">
+                <ul class="right valign-wrapper" style="font-family: 'Merienda', cursive;">
+                    <li><a href="#"><i class="fas fa-map-marker-alt red-text"></i> <?php echo $chef['chef_city']; ?></a></li>
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="#">Home-Chefs</a></li>
+                    <li><a href="#my_cart">My Cart</a></li>
+                    <li><a href="admin/logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
         <div class="row white-text">
             <div class="col s6">
                 <img class="chef_img " src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hlZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80">
@@ -130,52 +184,81 @@ $delivery_options = explode(" ", $chef['delivery_option']);
         </div>
     </header>
     <section class="section">
-        <div class="row">
-            <div class="col s6 m3">
-                <!-- <div class="valign-wrapper"> -->
-                <div class="card">
-                    <div class="card-title orange white-text center">
-                        CheckOut
-                    </div>
+        <div id="my_cart" class="row">
+            <div class="col s12 m3" style="margin-top:20vh;">
+                <div class="card ">
+                    <div class="card-title orange white-text center">Your Cart</div>
                     <div class="card-content center">
+                        <?php
+                        if ($_SESSION['cur_amt'] == 0) {
+                            echo "<h5> Your cart is empty! </h5>";
+                        } else {
+                            echo "<h5> Your Food :  </h5>";
+                            foreach (array_keys($_SESSION['list_of_food']) as $fod) : ?>
+                                <?php
+                                foreach ($food as $fod1) {
+                                    if ($fod1['food_id'] == $fod) { ?>
+                                        <h6><?php echo $fod1['food_name'] . " - " . $_SESSION['list_of_food'][$fod] . " (&#8377;" . $food[$fod]['food_price'] * $_SESSION['list_of_food'][$fod] . ")"; ?> <a href=<?php echo "order_now.php?chef_id=" . $chef_id . "&id_to_del=" . $fod . "#my_cart" ?>><i class="far fa-trash-alt red-text"></i></a></h6>
+                                <?php
+                                        break;
+                                    }
+                                }
+                                ?>
+
+                        <?php endforeach;
+                        }
+                        ?>
                         <h5>Your Current total</h5>
                         <h4><i class="fas fa-rupee-sign green-text"></i> <?php echo $_SESSION['cur_amt']; ?></h4>
                     </div>
                     <div class="card-action center">
-                        <h5><a href="" class="btn orange">Place order</a></h5>
+                        <h5><a href=<?php echo "order_now.php?chef_id=".$chef_id."&check_out=".count($_SESSION['list_of_food']);?> class="btn orange">Place order</a></h5>
                     </div>
                 </div>
-                <!-- </div> -->
             </div>
-            <div class="col s6 m8">
+            <div class="col s12 m8">
                 <?php foreach ($food as $fd) : ?>
                     <div class="container">
-                        <div class="card">
-                            <h5 class="center orange white-text"><?php echo strtoupper($fd['food_name']); ?></h5>
-                            <div class="card-content">
-                                <div class="row">
-                                    <div class="col s6">
-                                        <img class="section_img" src=<?php echo "admin/uploads/" . $fd['food_img']; ?> alt=<?php echo $fd['food_name']; ?>>
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <h5><i class="fas fa-rupee-sign green-text"></i> <?php echo $fd['food_price']; ?></h5>
+                        <form action=<?php echo "order_now.php?chef_id=" . $chef_id . "#my_cart" ?> method="POST">
+                            <div class="card" id=<?php echo $fd['food_id']; ?>>
+                                <h5 class="center orange white-text"><?php echo strtoupper($fd['food_name']); ?></h5>
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <img class="section_img" src=<?php echo "admin/uploads/" . $fd['food_img']; ?> alt=<?php echo $fd['food_name']; ?>>
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <h5><i class="fas fa-rupee-sign green-text"></i> <?php echo $fd['food_price']; ?></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <h5>Qty: </h5>
+                                                </div>
+                                                <div class="col s6">
+                                                    <?php
+                                                    if (array_key_exists($fd['food_id'], $_SESSION['list_of_food'])) {
+                                                        $value = $_SESSION['list_of_food'][$fd['food_id']];
+                                                    } else {
+                                                        $value = 0;
+                                                    }
+                                                    ?>
+                                                    <input type="hidden" name="food_id" value=<?php echo $fd['food_id']; ?>>
+                                                    <input type="hidden" name="food_price" value=<?php echo $fd['food_price']; ?>>
+                                                    <input type="number" min='0' name="food_qty" value=<?php echo $value ?>>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col s3">
-                                                <h5>Qty: </h5>
-                                            </div>
-                                            <div class="col s3">
-                                                <input type="number" name="" value='1'>
-                                            </div>
-                                        </div>
                                     </div>
+                                    <p><?php echo $fd['food_desc']; ?></p>
                                 </div>
-                                <p><?php echo $fd['food_desc']; ?></p>
+                                <div class="card-action center">
+                                    <input type="submit" name="re-do_total" value="Add to cart" class="btn orange">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             </div>

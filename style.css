@@ -10,47 +10,27 @@
 /* Navbar */
 
 nav {
-    z-index:99999;
+    z-index: 99999;
     width: 100%;
-    background-color: #000  !important;
-    /* line-height: 80px; */
+    background-color: #000 !important;
     position: fixed;
 }
 
-#logo{
-    height:60px !important;
+#logo {
+    height: 60px !important;
 }
 
-.mild-transparent{
+.mild-transparent {
     background: rgba(0, 0, 0, 0.541) !important;
 }
-.drop-hover:hover{
-    color:black  !important;
+
+.drop-hover:hover {
+    color: black !important;
 }
 
-/* nav ul {
-    float: right;
-    margin-right: 30px;
-}
-nav ul li {
-    list-style-type: none;
-    display: inline-block;
-
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 30px;
-    font-family: 'Merienda', cursive;
-}
-
-nav img {
-    margin-left: 40px;
-    height: 80px;
-} */
 
 /* Header */
+
 #index-header {
     background: url(img/bgimg.jpg);
     background-size: cover;
@@ -68,10 +48,11 @@ nav img {
     font-size: 32px;
     text-align: left;
     font-family: 'Merienda', cursive;
-    /* font-family: 'Pattaya', sans-serif; */
-  }
-  
+    font-family: 'Pattaya', sans-serif;
+}
+
 /* Why Us section */
+
 .why-us-section {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -83,35 +64,35 @@ nav img {
     font-size: 2.4rem;
     font-family: 'Patrick Hand', cursive;
 }
+
 .why-us {
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
     margin: 20px auto;
     max-width: 1200px;
     padding: 20px;
     background-color: white;
-   
 }
 
-.why-us > .card {
+.why-us>.card {
     text-align: center;
     padding: 20px;
     margin: 10px 20px;
 }
 
-.why-us > .card img {
+.why-us>.card img {
     vertical-align: middle;
     height: 100px;
     padding-top: 20px;
 }
 
-.why-us > .card  h3 {
+.why-us>.card h3 {
     font-size: 1.7rem;
     margin-top: 10px;
     font-family: 'Patrick Hand', cursive;
 }
 
-.why-us > .card  p {
+.why-us>.card p {
     margin: 20px auto;
 }

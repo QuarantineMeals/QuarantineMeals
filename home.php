@@ -2,13 +2,15 @@
 
 include('config/db_connect.php');
 session_start();
+$_SESSION['cur_amt'] = 0;
+$_SESSION['list_of_food'] = [];
 $user_id = $_SESSION['user_id'];
 
 $sql_uc = "SELECT user_city FROM user WHERE user_id='$user_id'";
 $result_uc = mysqli_query($conn, $sql_uc);
 $user_city = mysqli_fetch_assoc($result_uc)['user_city'];
 
-$sql = "SELECT * from food WHERE food_city='$user_city'";
+$sql = "SELECT * from food WHERE food_city='$user_city' ORDER BY food_name";
 $result = mysqli_query($conn, $sql);
 $list_of_food = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -41,6 +43,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
   <!--using FontAwesome--------------->
   <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
   <style>
+
     .food_img {
       object-fit: cover;
       width: auto;
@@ -56,6 +59,10 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
       display: inline-flex;
       vertical-align: top;
     }
+
+    * {
+      scroll-behavior: smooth;
+    }
   </style>
 
 
@@ -67,10 +74,9 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
       <div class="nav-wrapper ">
         <img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo">
         <ul class="right valign-wrapper" style="font-family: 'Merienda', cursive;">
-          <li><a href="#">My City</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt red-text"></i> <?php echo $user_city; ?></a></li>
           <li><a href="#">Home</a></li>
-          <li><a href="#">Home-Chefs</a></li>
-          <li><a href="#">My Cart</a></li>
+          <li><a href="#home_chef">Home-Chefs</a></li>
           <li><a href="admin/logout.php">Logout</a></li>
         </ul>
       </div>
@@ -129,7 +135,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
               </div>
               <div class="card-action">
                 <div class="row"><span class="price">&#8377 <?php echo $food['food_price']; ?></span>
-                  <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
+                  <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'].'#'.$food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
                 </div>
               </div>
             </div>
@@ -140,7 +146,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
 
   </section>
 
-  <section class="featuredchefs container">
+  <section id="home_chef" class="featuredchefs container">
     <h3 class="center">Featured Home-Chefs</h3>
     <p class="center">See all the Home-Chefs supplying food in your city</p>
     <br>
@@ -168,44 +174,6 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
           </div>
         </div>
       <?php endforeach; ?>
-      <!-- <div class="chef-wrap">
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-        <div class="chef-wrap-card">
-          <img src="img/bgimg.jpg">
-          <h5>Chef name</h5>
-          <p class="truncate"> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-          <p>Rating</p>
-        </div>
-      </div> -->
     </div>
   </section>
 
