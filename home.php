@@ -62,6 +62,10 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
     * {
       scroll-behavior: smooth;
     }
+
+    body{
+      background-color: whitesmoke;
+    }
   </style>
 
 
@@ -75,7 +79,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
         <ul class="right valign-wrapper" style="font-family: 'Merienda', cursive;">
           <li><a href="#"><i class="fas fa-map-marker-alt red-text"></i> <?php echo $user_city; ?></a></li>
           <li><a href="#">Home</a></li>
-          <li><a href=<?php echo "my_orders.php"?>>My Orders</a></li>
+          <li><a href=<?php echo "my_orders.php" ?>>My Orders</a></li>
           <li><a href="#home_chef">Home-Chefs</a></li>
           <li><a href="admin/logout.php">Logout</a></li>
         </ul>
@@ -97,7 +101,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
           <img src="img/slider-images/slide2.jpg" />
         </div>
       </li>
-      
+
       <li class="item-e">
         <div class="showcase-box">
           <img src="img/slider-images/slide3.jpg" />
@@ -125,6 +129,37 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
       </li>
     </ul>
   </section>
+  <!-- Free Foods -->
+  <section id="popular-foods">
+    <h3 class="center green-text text-darken-3">Free foods for covid Patients</h3>
+    <p class="center">Get nutritious home food from our Homechefs and have a speedy recovery</p>
+
+    <div class="container">
+      <div class="row">
+        <?php foreach ($list_of_food as $food) : ?>
+          <?php if ($food['food_price'] == 0) : ?>
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-image">
+                  <img class="responsive-img food_img" src=<?php echo "admin/uploads/" . $food['food_img']; ?>>
+                </div>
+                <div class="card-content">
+                  <span class="card-title truncate"><?php echo $food['food_name']; ?></span>
+                  <p class="truncate"><?php echo $food['food_desc']; ?></p>
+                </div>
+                <div class="card-action">
+                  <div class="row"><span class="price green-text">FREE</span>
+                    <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'] . '#' . $food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+  </section>
 
   <!-- Popular Foods -->
   <section id="popular-foods">
@@ -135,22 +170,24 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
       <div class="row">
         <?php foreach ($list_of_food as $food) : ?>
 
-          <div class="col s12 m4">
-            <div class="card">
-              <div class="card-image">
-                <img class="responsive-img food_img" src=<?php echo "admin/uploads/" . $food['food_img']; ?>>
-              </div>
-              <div class="card-content">
-                <span class="card-title truncate"><?php echo $food['food_name']; ?></span>
-                <p class="truncate"><?php echo $food['food_desc']; ?></p>
-              </div>
-              <div class="card-action">
-                <div class="row"><span class="price">&#8377 <?php echo $food['food_price']; ?></span>
-                  <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'] . '#' . $food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
+          <?php if ($food['food_price'] != 0) : ?>
+            <div class="col s12 m4">
+              <div class="card">
+                <div class="card-image">
+                  <img class="responsive-img food_img" src=<?php echo "admin/uploads/" . $food['food_img']; ?>>
+                </div>
+                <div class="card-content">
+                  <span class="card-title truncate"><?php echo $food['food_name']; ?></span>
+                  <p class="truncate"><?php echo $food['food_desc']; ?></p>
+                </div>
+                <div class="card-action">
+                  <div class="row"><span class="price">&#8377 <?php echo $food['food_price']; ?></span>
+                    <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'] . '#' . $food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <?php endif; ?>
         <?php endforeach; ?>
       </div>
     </div>
@@ -167,20 +204,21 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
           <div class="card">
             <div class="row">
               <div class="col s6">
-                <img class='responsive-img chef_img' src="https://st3.depositphotos.com/1037987/15097/i/600/depositphotos_150975580-stock-photo-portrait-of-businesswoman-in-office.jpg">
+                <img class='responsive-img chef_img' src=<?php echo "admin/uploads/" . $chef['chef_img'] ?>>
                 <br>
                 <br>
-                <p class="center">Rating: <i class="fas fa-star yellow-text text-darken-2"></i> 5 </p>
               </div>
               <div class="col s6">
                 <h5 class="truncate"><?php echo $chef['chef_name']; ?></h5>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis ea iste dicta?</p>
+                <p class="truncate"><?php echo $chef['chef_desc']; ?></p>
                 <br>
                 <p><i class="fas fa-phone-volume green-text"></i> <?php echo $chef['chef_number']; ?></p>
+                <br>
+                <p class="">Rating: <i class="fas fa-star yellow-text text-darken-2"></i> 5 </p>
               </div>
             </div>
             <div class="card-action center">
-              <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id']; ?> class="btn  orange">About his/her food</a>
+              <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id']; ?> class="btn  orange">About Chef and Food</a>
             </div>
           </div>
         </div>
@@ -192,30 +230,32 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
 
   <!-- start: FOOTER -->
   <footer class="page-footer grey darken-4">
-        <div class="container">
-          <div class="row">
-            <div class="col l6 s12">
-              <h5 class="white-text"><img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo" id="logo"></h5>
-              <p class="grey-text text-lighten-4">Serving you homemade food during quarantine :)</p>
-            </div>
-            <div class="col l4 offset-l2 s12">
-              <h5 class="white-text">Quarantine Meals</h5>
-              <ul>
-                <li><a class="grey-text text-lighten-3" href="#whyus">Why Us?</a></li>
-                <li><a class="grey-text text-lighten-3" href="#our-chefs">Our Chef Warriors</a></li>
-                <li><a class="grey-text text-lighten-3" href="#aboutus">About Us</a></li>
-                <li><a class="grey-text text-lighten-3" href="admin/index.php">Login</a></li>
-                <li><a class="grey-text text-lighten-3" href="#signin">Sign In</a></li>
-              </ul>
-            </div>
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text"><img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo" id="logo"></h5>
+          <p class="grey-text text-lighten-4">Serving you homemade food during quarantine :)</p>
         </div>
-        <div class="footer-copyright">
-          <div class="container center">
-            Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z" fill="#e25555"></path></svg> by <a href="#" style="text-decoration: none;color: white;"><i class="fa fa-github" style="font-size:20px;color:white;"></i> Team Quarantine Meals</a>
-            </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Quarantine Meals</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#whyus">Why Us?</a></li>
+            <li><a class="grey-text text-lighten-3" href="#our-chefs">Our Chef Warriors</a></li>
+            <li><a class="grey-text text-lighten-3" href="#aboutus">About Us</a></li>
+            <li><a class="grey-text text-lighten-3" href="admin/index.php">Login</a></li>
+            <li><a class="grey-text text-lighten-3" href="#signin">Sign In</a></li>
+          </ul>
         </div>
-      </footer>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container center">
+        Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
+          <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z" fill="#e25555"></path>
+        </svg> by <a href="#" style="text-decoration: none;color: white;"><i class="fa fa-github" style="font-size:20px;color:white;"></i> Team Quarantine Meals</a>
+      </div>
+    </div>
+  </footer>
   <!-- end:Footer -->
   <script type="text/javascript">
     $(document).ready(function() {

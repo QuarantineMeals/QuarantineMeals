@@ -80,7 +80,7 @@ if (isset($_GET['check_out'])) {
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
     <style>
         .order_now_header {
-            background: linear-gradient(hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.5)), url('https://d19fbfhz0hcvd2.cloudfront.net/UC/wp-content/uploads/2014/10/Food-photography-eastern-europe-city-illustrations-banner1.jpg');
+            background: linear-gradient(hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.5)), url(<?php echo "admin/uploads/" . $chef['banner_img']; ?>);
             background-size: cover;
             height: 100vh;
             width: 100%;
@@ -115,6 +115,14 @@ if (isset($_GET['check_out'])) {
         .brand-logo {
             max-height: 100%;
         }
+
+        body {
+            background-color: whitesmoke;
+        }
+
+        .chef_footer {
+            background-color: black;
+        }
     </style>
     <script>
         $(document).ready(function() {
@@ -142,7 +150,7 @@ if (isset($_GET['check_out'])) {
         <!-- ########################### chef banner ################################# -->
         <div class="row white-text">
             <div class="col s6">
-                <img class="chef_img " src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hlZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80">
+                <img class="chef_img " src=<?php echo "admin/uploads/" . $chef['chef_img'] ?>>
             </div>
             <div class="col s6">
                 <div class="section">
@@ -211,7 +219,7 @@ if (isset($_GET['check_out'])) {
                     <div class="card-title orange white-text center">Your Cart</div>
                     <div class="card-content center">
                         <?php
-                        if ($_SESSION['cur_amt'] == false) {
+                        if ($_SESSION['cur_amt'] === false) {
                             echo "<h5> Your cart is empty! </h5>";
                         } else {
                             echo "<h5> Your Food :  </h5>";
@@ -292,6 +300,56 @@ if (isset($_GET['check_out'])) {
         </div>
 
     </section>
+    <footer class="chef_footer white-text">
+        <div class="section container">
+            <div class="center">
+                <h4>About <?php echo $chef['chef_name']; ?></h4>
+            </div>
+        </div>
+        <div class="section container">
+            <h5><?php echo $chef['chef_desc']; ?></h5>
+        </div>
+        <div class="container row">
+            <div class="col s6">
+                <div class="section center">
+                    <h5>Meal Options Provided : </h5>
+                    <?php if (in_array('breakfast', $meal_options)) : ?>
+                        <h5><i class="fas fa-check green-text"></i> Breakfast</h5>
+                    <?php else : ?>
+                        <h5><i class="fas fa-times red-text"></i> Breakfast</h5>
+                    <?php endif; ?>
+                    <?php if (in_array('lunch', $meal_options)) : ?>
+                        <h5><i class="fas fa-check green-text"></i> Lunch</h5>
+                    <?php else : ?>
+                        <h5><i class="fas fa-times red-text"></i> Lunch</h5>
+                    <?php endif; ?>
+                    <?php if (in_array('dinner', $meal_options)) : ?>
+                        <h5><i class="fas fa-check green-text"></i> Dinner</h5>
+                    <?php else : ?>
+                        <h5><i class="fas fa-times red-text"></i> Dinner</h5>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="section center">
+                    <h5>Delivery Options Avaliable:</h5>
+                    <?php if (in_array('home_del', $delivery_options)) : ?>
+                        <h5><i class="fas fa-check green-text"></i> Home delivery</h5>
+                    <?php else : ?>
+                        <h5><i class="fas fa-times red-text"></i> Home delivery</h5>
+                    <?php endif; ?>
+                    <?php if (in_array('self_pick', $delivery_options)) : ?>
+                        <h5><i class="fas fa-check green-text"></i> Self Pickup</h5>
+                    <?php else : ?>
+                        <h5><i class="fas fa-times red-text"></i> Self Pickup</h5>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h5 class="center">@CopyRights Quarantine Meals</h5>
+        <br>
+    </footer>
 
 </body>
 

@@ -13,7 +13,6 @@ nav {
     z-index: 99999;
     width: 100%;
     background-color: #000 !important;
-    position: fixed;
 }
 
 #logo {

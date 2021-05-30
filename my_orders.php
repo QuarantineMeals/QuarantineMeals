@@ -38,7 +38,17 @@ if (isset($_GET['cancel_id'])) {
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
+            $('#yes').hide();
+            $('#no').hide();
             $('.modal').modal();
+            $('#enjoy_yes').click(function() {
+                $('#yes').show();
+                $("#temp1").hide();
+            });
+            $('#enjoy_no').click(function() {
+                $('#no').show();
+                $("#temp1").hide();
+            });
         });
     </script>
     <style>
@@ -69,6 +79,10 @@ if (isset($_GET['cancel_id'])) {
         th {
             text-align: left;
             max-width: 20vw;
+        }
+
+        .btn-flat:hover {
+            background-color: hsl(0, 100%, 70%);
         }
     </style>
 </head>
@@ -145,6 +159,25 @@ if (isset($_GET['cancel_id'])) {
                                     <p>Grand total : &#8377; <?php echo $price; ?></p>
                                     <p>Status : <?php echo $status; ?></p>
                                     <p>Last modification on : <?php echo $created_at; ?></p>
+                                    <?php if ($status == "Delivered") : ?>
+                                        <div id="temp1">
+                                            <h5>Have you enjoyed your meals?</h5>
+                                            <span id="enjoy_no" class="btn-small btn-flat">No</span>
+                                            <span href="" id="enjoy_yes" class="btn-small green">Yes</span>
+                                        </div>
+                                        <div id="yes">
+                                            <div class="section green-text">
+                                                <h4>Thank you for using Quarantine Meals!</h4>
+                                                <h4>We're happy to hear that!</h4>
+                                            </div>
+                                        </div>
+                                        <div id="no">
+                                            <div class="section orange-text">
+                                                <h4>We'll try to improve user experience!</h4>
+                                                <h4>We're sorry to hear about that!</h4>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="#!" class="modal-close orange btn">Okay</a>
