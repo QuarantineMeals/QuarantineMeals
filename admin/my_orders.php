@@ -8,25 +8,31 @@ $sql_o = "SELECT * FROM orders where chef_id='$chef_id'";
 $result_o = mysqli_query($conn, $sql_o);
 $orders = mysqli_fetch_all($result_o, MYSQLI_ASSOC);
 
-if (isset($_POST['submit'])) {
-    $food_status = $_POST['food_status'];
-    $cur_order_id = $_POST['order_id'];
-    $cur_food_status = "";
-    if ($food_status == 1) {
-        $cur_food_status = "Yet to be packed";
-    } elseif ($food_status == 2) {
-        $cur_food_status = "dispatched";
-    } else {
-        $cur_food_status = "Delivered";
-    }
-    $sql_u = "UPDATE orders SET status='$cur_food_status' WHERE order_id='$cur_order_id'";
-    if (mysqli_query($conn, $sql_u)) {
-        // echo "Updated";
-        header('Location: my_orders.php');
-    } else {
-        echo mysqli_error($conn);
+foreach ($orders as $o) {
+    if (isset($_POST['submit-'.$o['order_id']])) {
+        print_r($_POST);
+        $food_status = $_POST['food_status-'.$o['order_id']];
+        echo $_POST['order_id-'.$o['order_id']];
+        $cur_order_id = $_POST['order_id-'.$o['order_id']];
+        $cur_food_status = "";
+        if ($food_status == 1) {
+            $cur_food_status = "Yet to be packed";
+        } elseif ($food_status == 2) {
+            $cur_food_status = "dispatched";
+        } else {
+            $cur_food_status = "Delivered";
+        }
+        echo $cur_order_id;
+        $sql_u = "UPDATE orders SET status='$cur_food_status' WHERE order_id='$cur_order_id'";
+        if (mysqli_query($conn, $sql_u)) {
+            // echo "Updated";
+            header('Location: my_orders.php');
+        } else {
+            echo mysqli_error($conn);
+        }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,8 +117,8 @@ if (isset($_POST['submit'])) {
     <!-- ################################## table ############### -->
     <div class="section">
         <div class="side-margin z-depth-3">
+            <?php $count = 1 ?>
             <form action="my_orders.php" method="POST">
-                <?php $count = 1 ?>
                 <table class="striped responsive-table">
                     <thead>
                         <tr class="orange white-text">
@@ -135,27 +141,27 @@ if (isset($_POST['submit'])) {
                             $status = $row['status'];
                             $created_at = $row['created_at'] ?>
                             <tr>
-                                <th><?php echo $count++ ?></th>
-                                <th><?php echo $order_id; ?></th>
-                                <th class="truncate"><?php echo $foods; ?></th>
-                                <th>&#8377; <?php echo $price; ?></th>
-                                <th class="status-row">
+                                <td><?php echo $count++ ?></td>
+                                <td><?php echo $order_id; ?></td>
+                                <td class="truncate"><?php echo $foods; ?></td>
+                                <td>&#8377; <?php echo $price; ?></td>
+                                <td class="status-row">
                                     <div class="input-field col s12">
-                                        <select name="food_status" id="food_status">
+                                        <select name=<?php echo "food_status-" . $order_id ?> id="food_status">
                                             <option value="" disabled selected><?php echo $status ?></option>
-                                            <option value="1">Yet to be cooked</option>
+                                            <option value="1">Yet to be packed</option>
                                             <option value="2">dispatched</option>
                                             <option value="3">Delivered</option>
                                         </select>
                                     </div>
-                                </th>
-                                <th><?php echo $created_at; ?></th>
-                                <th><a href=<?php echo '#' . $order_id ?> class="btn-small modal-trigger orange">click</a></th>
+                                </td>
+                                <td><?php echo $created_at; ?></td>
+                                <td><a href=<?php echo '#' . $order_id ?> class="btn-small modal-trigger orange">click</a></td>
 
-                                <th>
-                                    <input type="submit" value="Update" name="submit" class="green btn-small">
-                                    <input type="hidden" name="order_id" value=<?php echo $order_id ?>>
-                                </th>
+                                <td>
+                                    <input type="submit" value="Update" name=<?php echo "submit-" . $order_id ?> class="green btn-small">
+                                    <input type="hidden" name=<?php echo "order_id-" . $order_id ?> value=<?php echo $order_id ?>>
+                                </td>
 
                                 <div id=<?php echo $order_id ?> class="modal">
                                     <?php
@@ -192,8 +198,6 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
                             </tr>
-
-
                         <?php endforeach; ?>
                     </tbody>
                 </table>
