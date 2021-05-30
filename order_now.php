@@ -52,13 +52,13 @@ if (isset($_GET['id_to_del'])) {
     }
 }
 
-if(isset($_GET['check_out'])){
+if (isset($_GET['check_out'])) {
     $check_out = mysqli_real_escape_string($conn, $_GET['check_out']);
-    if($check_out){
+    if ($check_out) {
+        $_SESSION['chef_id'] = $chef_id;
         header('Location: check_out.php');
-    }
-    else{
-        
+    } else {
+        // header('Location: order_now.php?chef_id=' . $chef_id . '#check_out_error');
     }
 }
 ?>
@@ -110,17 +110,22 @@ if(isset($_GET['check_out'])){
             z-index: 99999;
             width: 100%;
             background-color: #000 !important;
-            /* line-height: 80px; */
         }
 
         .brand-logo {
             max-height: 100%;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $('.modal').modal();
+        });
+    </script>
 </head>
 
 <body>
     <header class="order_now_header">
+        <!-- ################### nav bar ######################### -->
         <nav>
             <div class="nav-wrapper ">
                 <img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo">
@@ -133,6 +138,8 @@ if(isset($_GET['check_out'])){
                 </ul>
             </div>
         </nav>
+
+        <!-- ########################### chef banner ################################# -->
         <div class="row white-text">
             <div class="col s6">
                 <img class="chef_img " src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hlZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80">
@@ -171,26 +178,40 @@ if(isset($_GET['check_out'])){
                 </div>
 
             </div>
-
         </div>
         <div class="row white-text">
             <div class="col s6">
                 <h4 class="chef_name white-text "><?php echo $chef["chef_name"]; ?></h4>
             </div>
-
             <div class="col s6">
                 <h5><i class="fas fa-phone-volume blue-text"></i> Phone number : <?php echo $chef['chef_number']; ?></h5>
             </div>
         </div>
-    </header>
+    </header><!-- end of header -->
+
     <section class="section">
+
+        <!-- #################### checkout Error modal ##################################-->
+        <div id="check_out_error" class="modal">
+            <div class="modal-content">
+                <h4 class="orange-text">Cart Empty!!</h4>
+                <p>Please add some items into your cart inorder to proceed!</p>
+            </div>
+            <div class="modal-footer">
+                <div class="center">
+                    <a href="#" class="modal-close btn orange">Okay</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ###################### Cart ################################## -->
         <div id="my_cart" class="row">
             <div class="col s12 m3" style="margin-top:20vh;">
                 <div class="card ">
                     <div class="card-title orange white-text center">Your Cart</div>
                     <div class="card-content center">
                         <?php
-                        if ($_SESSION['cur_amt'] == 0) {
+                        if ($_SESSION['cur_amt'] == false) {
                             echo "<h5> Your cart is empty! </h5>";
                         } else {
                             echo "<h5> Your Food :  </h5>";
@@ -212,10 +233,16 @@ if(isset($_GET['check_out'])){
                         <h4><i class="fas fa-rupee-sign green-text"></i> <?php echo $_SESSION['cur_amt']; ?></h4>
                     </div>
                     <div class="card-action center">
-                        <h5><a href=<?php echo "order_now.php?chef_id=".$chef_id."&check_out=".count($_SESSION['list_of_food']);?> class="btn orange">Place order</a></h5>
+                        <?php if (count($_SESSION['list_of_food'])) : ?>
+                            <h5><a href=<?php echo "order_now.php?chef_id=" . $chef_id . "&check_out=" . count($_SESSION['list_of_food']); ?> class="btn orange">Place order</a></h5>
+                        <?php else : ?>
+                            <h5><a href="#check_out_error" class="modal-trigger btn orange">Place order</a></h5>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
+
+            <!-- ############################### list of Foods ############################ -->
             <div class="col s12 m8">
                 <?php foreach ($food as $fd) : ?>
                     <div class="container">

@@ -2,7 +2,7 @@
 
 include('config/db_connect.php');
 session_start();
-$_SESSION['cur_amt'] = 0;
+$_SESSION['cur_amt'] = false;
 $_SESSION['list_of_food'] = [];
 $user_id = $_SESSION['user_id'];
 
@@ -28,6 +28,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
   <title>Quarantine Meals</title>
 
   <link rel="stylesheet" href="css/user_home.css">
+  <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -43,7 +44,6 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
   <!--using FontAwesome--------------->
   <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
   <style>
-
     .food_img {
       object-fit: cover;
       width: auto;
@@ -76,6 +76,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
         <ul class="right valign-wrapper" style="font-family: 'Merienda', cursive;">
           <li><a href="#"><i class="fas fa-map-marker-alt red-text"></i> <?php echo $user_city; ?></a></li>
           <li><a href="#">Home</a></li>
+          <li><a href=<?php echo "my_orders.php"?>>My Orders</a></li>
           <li><a href="#home_chef">Home-Chefs</a></li>
           <li><a href="admin/logout.php">Logout</a></li>
         </ul>
@@ -135,7 +136,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
               </div>
               <div class="card-action">
                 <div class="row"><span class="price">&#8377 <?php echo $food['food_price']; ?></span>
-                  <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'].'#'.$food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
+                  <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id'] . '#' . $food['food_id']; ?> class="btn orange right valign-wrapper">Order Now</a>
                 </div>
               </div>
             </div>

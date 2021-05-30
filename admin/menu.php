@@ -1,5 +1,4 @@
 <?php
-define('SITE_ROOT', realpath(dirname(__FILE__)));
 include('../config/db_connect.php');
 session_start();
 $chef_id = $_SESSION['chef_id'];
@@ -31,18 +30,7 @@ $my_food = mysqli_fetch_all($result, MYSQLI_ASSOC);
             height: 30vh !important;
         }
 
-        /* .card-content {
-            height: 30vh;
-            overflow-y: scroll;
-        }
-        .card-content::-webkit-scrollbar {
-            display: none;
-        }
-        .card-content {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-            Firefox
-        } */
+    
     </style>
 </head>
 

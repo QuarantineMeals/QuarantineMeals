@@ -27,14 +27,22 @@ if (isset($_POST['login'])) {
         if ($chef) {
             $_SESSION["chef_id"] = $chef['chef_id'];
             $_SESSION["user_id"] = '';
-            header('Location: dashboard.php');
+            if ($user_password === $chef['chef_password']) {
+                header('Location: dashboard.php');
+            }else{
+                $user_password_error = "Incorrect password";
+            }
         }
         $result2 = mysqli_query($conn, "SELECT * FROM user WHERE user_mail='$user_name'");
         $user = mysqli_fetch_assoc($result2);
         if ($user) {
             $_SESSION["user_id"] = $user['user_id'];
             $_SESSION['chef_id'] = '';
-            header('Location: ../home.php');
+            if ($user_password === $user['user_password']) {
+                header('Location: ../home.php');
+            }else{
+                $user_password_error = "Incorrect password";
+            }
         }
         if (!$user && !$chef) {
             $user_name_error = "Username not found";

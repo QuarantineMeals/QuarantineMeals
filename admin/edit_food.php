@@ -31,7 +31,7 @@ if (isset($_POST['save_changes'])) {
         $error['food_img'] = 'File size is too large(maximum limit is 1MB)';
     }
     if (array_filter($error)) {
-        echo "Error found";
+        //success
     } else {
         $img_ex = pathinfo($food_img, PATHINFO_EXTENSION);
         $img_ex_lc = strtolower($img_ex);

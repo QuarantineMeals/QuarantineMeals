@@ -127,7 +127,6 @@ if (isset($_POST['chef_reg'])) {
         $sql = "INSERT INTO chef (chef_password,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password','$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
         $result = mysqli_query($conn, $sql);
         if($result){
-
             header('Location: ../admin');
         }
         else{

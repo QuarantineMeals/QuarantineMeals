@@ -24,6 +24,9 @@ if (isset($_POST['user_reg'])) {
     if (empty($user_password)) {
         $user_password_error = "Please enter your password";
         $is_error = true;
+    } else if (strlen($user_password) < 8) {
+        $user_password_error = "Password should be >=8 characters";
+        $is_error = true;
     }
 
     if (empty($user_city)) {
@@ -54,9 +57,9 @@ if (isset($_POST['user_reg'])) {
     if ($is_error == false) {
         $sql = "INSERT INTO user (user_password,user_name,user_mail,user_address,user_number,user_city) VALUES ('$user_password','$user_name','$user_mail','$user_address','$user_number','$user_city')";
         $result = mysqli_query($conn, $sql);
-        if($result){
+        if ($result) {
             header('Location: admin/');
-        }else{
+        } else {
             echo mysqli_error($conn);
         }
     }
