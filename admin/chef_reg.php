@@ -45,7 +45,7 @@ if (isset($_POST['chef_reg'])) {
     if (empty($chef_password)) {
         $chef_password_error = "Please enter your password";
         $is_error = true;
-    }else if(strlen($chef_password) < 8){
+    } else if (strlen($chef_password) < 8) {
         $chef_password_error = "Password must be >= 8 characters";
         $is_error = true;
     }
@@ -126,10 +126,9 @@ if (isset($_POST['chef_reg'])) {
         }
         $sql = "INSERT INTO chef (chef_password,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password','$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
         $result = mysqli_query($conn, $sql);
-        if($result){
+        if ($result) {
             header('Location: ../admin');
-        }
-        else{
+        } else {
             echo mysqli_error($conn);
         }
         // $chef_id_r = mysqli_query($conn, "SELECT * FROM chef WHERE chef_mail='$chef_mail'");
@@ -172,7 +171,7 @@ if (isset($_POST['chef_reg'])) {
                 }
             });
             $("#_user_password").focus(function() {
-                $('.suffix').css('color', '#26a69a');
+                $('.suffix').css('color', '#ff9800');
             });
             $("#_user_password").focusout(function() {
                 $('.suffix').css('color', 'black');
@@ -189,6 +188,46 @@ if (isset($_POST['chef_reg'])) {
 
         .suffix:hover {
             cursor: pointer;
+        }
+
+        .input-field label {
+            color: orange;
+        }
+
+        /* label focus color */
+        .input-field input:focus+label {
+            color: orange !important;
+        }
+
+        /* label underline focus color */
+        .input-field input:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        /* icon prefix focus color */
+        .input-field .suffix .active {
+            color: orange !important;
+        }
+
+        [type="checkbox"].filled-in:checked+span:not(.lever):after {
+            background-color: orange;
+            border: 2px solid orange;
+        }
+
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:after {
+            background-color: orange;
+        }
+
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:before,
+        [type="radio"].with-gap:checked+span:after {
+            border: 2px solid orange;
+        }
+
+        body {
+            background: whitesmoke;
         }
     </style>
 
@@ -302,7 +341,7 @@ if (isset($_POST['chef_reg'])) {
                         </div>
                     </div>
                     <div class="center">
-                        <input type="submit" class="btn" value="submit" name="chef_reg">
+                        <input type="submit" class="btn orange" value="submit" name="chef_reg">
                     </div>
             </form>
         </div>

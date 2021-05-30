@@ -99,7 +99,7 @@ if (isset($_POST['user_reg'])) {
                 }
             });
             $("#user_password").focus(function() {
-                $('.suffix').css('color', '#26a69a');
+                $('.suffix').css('color', '#ff9800');
             });
             $("#user_password").focusout(function() {
                 $('.suffix').css('color', 'black');
@@ -121,6 +121,57 @@ if (isset($_POST['user_reg'])) {
         .input-field {
             position: relative;
             padding-bottom: 30px !important;
+        }
+
+        .suffix {
+            position: absolute;
+            float: right;
+            right: 1rem !important;
+            top: 1rem;
+        }
+
+        .suffix:hover {
+            cursor: pointer;
+        }
+
+        .input-field label {
+            color: orange;
+        }
+
+        /* label focus color */
+        .input-field input:focus+label {
+            color: orange !important;
+        }
+
+        /* label underline focus color */
+        .input-field input:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        /* icon prefix focus color */
+        .input-field .suffix .active {
+            color: orange !important;
+        }
+
+        [type="checkbox"].filled-in:checked+span:not(.lever):after {
+            background-color: orange;
+            border: 2px solid orange;
+        }
+
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:after {
+            background-color: orange;
+        }
+
+        [type="radio"]:checked+span:after,
+        [type="radio"].with-gap:checked+span:before,
+        [type="radio"].with-gap:checked+span:after {
+            border: 2px solid orange;
+        }
+
+        body {
+            background: whitesmoke;
         }
     </style>
 
@@ -172,7 +223,7 @@ if (isset($_POST['user_reg'])) {
                     </div>
                 </div>
                 <div class="center">
-                    <input type="submit" class="btn" value="submit" name="user_reg">
+                    <input type="submit" class="btn orange" value="submit" name="user_reg">
                 </div>
 
 

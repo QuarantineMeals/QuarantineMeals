@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
             $_SESSION["user_id"] = '';
             if ($user_password === $chef['chef_password']) {
                 header('Location: dashboard.php');
-            }else{
+            } else {
                 $user_password_error = "Incorrect password";
             }
         }
@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
             $_SESSION['chef_id'] = '';
             if ($user_password === $user['user_password']) {
                 header('Location: ../home.php');
-            }else{
+            } else {
                 $user_password_error = "Incorrect password";
             }
         }
@@ -79,7 +79,7 @@ if (isset($_POST['login'])) {
                 }
             });
             $("#_user_password").focus(function() {
-                $('.suffix').css('color', '#26a69a');
+                $('.suffix').css('color', '#ff9800 ');
             });
             $("#_user_password").focusout(function() {
                 $('.suffix').css('color', 'black');
@@ -98,6 +98,28 @@ if (isset($_POST['login'])) {
 
         .suffix:hover {
             cursor: pointer;
+        }
+
+        .input-field label {
+            color: orange;
+        }
+
+        /* label focus color */
+        .input-field input:focus+label {
+            color: orange !important;
+        }
+
+        /* label underline focus color */
+        .input-field input:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        
+
+        /* icon prefix focus color */
+        .input-field .suffix .active {
+            color: orange !important;
         }
     </style>
 
@@ -121,14 +143,14 @@ if (isset($_POST['login'])) {
             <p>May be trying your other accounts' passwords may work &#128517;</p>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-small">Okay &#128513;</a>
+            <a href="#!" class="modal-close waves-effect waves-orange orange btn-small">Okay &#128513;</a>
         </div>
     </div>
 
     <br>
     <div class="section ">
         <div class="container z-depth-4" style="padding:30px; max-width:60vw;">
-            <h3 class="grey-text center ">Login</h3>
+            <h3 class="orange-text center ">Login</h3>
             <br>
             <div class="row">
                 <div class="container col s8 offset-s2">
@@ -150,10 +172,10 @@ if (isset($_POST['login'])) {
                             </div>
                         </div>
                         <div class="right-align">
-                            <a class="modal-trigger" href="#forgot_pass">Forgot password?</a>
+                            <a class="modal-trigger orange-text" href="#forgot_pass">Forgot password?</a>
                         </div>
                         <div class="center">
-                            <input type="submit" value="login" name="login" class="btn">
+                            <input type="submit" value="login" name="login" class="btn orange">
                         </div>
                         <br>
                     </form>

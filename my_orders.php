@@ -8,6 +8,17 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM orders WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $sql);
 $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+if (isset($_GET['cancel_id'])) {
+    $cancel_id = mysqli_real_escape_string($conn, $_GET['cancel_id']);
+    $sql_c = "DELETE from orders where order_id='$cancel_id'";
+    if (mysqli_query($conn, $sql_c)) {
+        //success
+        header('Location: my_orders.php');
+    } else {
+        echo mysqli_error($conn);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,8 +97,8 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <th>Foods</th>
                         <th>Total Price</th>
                         <th>status</th>
+                        <th>Modified at</th>
                         <th>Details</th>
-                        <th>Placed at</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -104,11 +115,15 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <th><?php echo $order_id; ?></th>
                             <th class="truncate"><?php echo $foods; ?></th>
                             <th>&#8377; <?php echo $price; ?></th>
-                            <th><?php echo $status; ?></th>
+                            <?php if ($status == "Delivered") : ?>
+                                <th class="green-text text-darken-3"><?php echo $status; ?></th>
+                            <?php else : ?>
+                                <th><?php echo $status; ?></th>
+                            <?php endif; ?>
                             <th><?php echo $created_at; ?></th>
                             <th><a href=<?php echo '#' . $order_id ?> class="btn-small modal-trigger orange">click</a></th>
                             <?php if ($status == "Yet to be packed") : ?>
-                                <th><a href="" class="red-text white btn-small">Cancel</a></th>
+                                <th><a href=<?php echo "my_orders.php?cancel_id=" . $order_id ?> class="red-text white btn-small">Cancel</a></th>
                             <?php else : ?>
                                 <th><a href="" class="red-text disabled white btn-small">Cancel</a></th>
                             <?php endif; ?>
@@ -129,15 +144,13 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                     </ol>
                                     <p>Grand total : &#8377; <?php echo $price; ?></p>
                                     <p>Status : <?php echo $status; ?></p>
-                                    <p>Order placed at : <?php echo $created_at; ?></p>
+                                    <p>Last modification on : <?php echo $created_at; ?></p>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="#!" class="modal-close orange btn">Okay</a>
                                 </div>
                             </div>
                         </tr>
-
-
                     <?php endforeach; ?>
                 </tbody>
             </table>
