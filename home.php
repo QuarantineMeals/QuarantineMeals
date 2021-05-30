@@ -218,7 +218,7 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
               </div>
             </div>
             <div class="card-action center">
-              <a href=<?php echo "order_now.php?chef_id=" . $food['chef_id']; ?> class="btn  orange">About Chef and Food</a>
+              <a href=<?php echo "order_now.php?chef_id=" . $chef['chef_id']; ?> class="btn  orange">About Chef and Food</a>
             </div>
           </div>
         </div>
