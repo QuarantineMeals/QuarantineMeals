@@ -96,3 +96,60 @@ nav {
 .why-us>.card p {
     margin: 20px auto;
 }
+
+/* Our chef warriors */
+
+#our-chefs {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+
+}
+
+#our-chefs  h1 {
+    font-size: 2.4rem;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.our-chefs-intro {
+    width: 80%;
+    text-align: center;
+    margin: 5vh auto;
+    font-size: 1.25rem;
+}
+
+
+.chef-img {
+    width: 30vw;
+    height: 60vh;
+}
+
+.quote1{
+    width: 40vw;
+    height: 60vh;
+}
+
+/* About Us */
+
+#aboutus {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+
+}
+
+#aboutus  h1 {
+    font-size: 2.4rem;
+    font-family: 'Patrick Hand', cursive;
+}
+
+#aboutus  p {
+    font-size: 1.3rem;
+    text-align: left !important;
+
+}
+
+.teamqm {
+    font-size: 1.7rem;
+    font-family: 'Patrick Hand', cursive;
+}

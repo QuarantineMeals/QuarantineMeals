@@ -89,27 +89,38 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
     <ul id="lightSlider">
       <li class="item-a">
         <div class="showcase-box">
-          <img src="https://drivetribe.imgix.net/fvzJ72EzQ3mdKF3wsAVkqA?w=1200&h=675&fm=jpe&auto=compress&fit=crop&crop=faces" />
-        </div>
-      </li>
-      <li class="item-b">
-        <div class="showcase-box">
-          <img src="https://anitahendrieka.com/wp-content/uploads/2019/05/indian-sweet-371357_1280.jpg" />
+          <img src="img/slider-images/slide1.jpeg" />
         </div>
       </li>
       <li class="item-c">
         <div class="showcase-box">
-          <img src="https://miro.medium.com/max/2048/1*4FK_k898oPwKQT0uCwwkIw.jpeg" />
+          <img src="img/slider-images/slide2.jpg" />
         </div>
       </li>
-      <li class="item-d">
+      
+      <li class="item-e">
         <div class="showcase-box">
-          <img src="https://i.ytimg.com/vi/pGiFN0Se0C8/maxresdefault.jpg" />
+          <img src="img/slider-images/slide3.jpg" />
         </div>
       </li>
       <li class="item-e">
         <div class="showcase-box">
-          <img src="https://i.pinimg.com/originals/2d/47/55/2d4755077b1c7d3d583e0b36bc772185.jpg" />
+          <img src="img/slider-images/slide4.jpg" />
+        </div>
+      </li>
+      <li class="item-e">
+        <div class="showcase-box">
+          <img src="img/slider-images/slide5.jpg" />
+        </div>
+      </li>
+      <li class="item-e">
+        <div class="showcase-box">
+          <img src="img/slider-images/slide6.jpg" />
+        </div>
+      </li>
+      <li class="item-e">
+        <div class="showcase-box">
+          <img src="img/slider-images/slide7.jpg" />
         </div>
       </li>
     </ul>
@@ -181,30 +192,30 @@ $chefs = mysqli_fetch_all($result_ch, MYSQLI_ASSOC);
 
   <!-- start: FOOTER -->
   <footer class="page-footer grey darken-4">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Footer Content</h5>
-          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text"><img src="img/txtlogo.png" class="brand-logo responsive-img" alt="logo" id="logo"></h5>
+              <p class="grey-text text-lighten-4">Serving you homemade food during quarantine :)</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Quarantine Meals</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#whyus">Why Us?</a></li>
+                <li><a class="grey-text text-lighten-3" href="#our-chefs">Our Chef Warriors</a></li>
+                <li><a class="grey-text text-lighten-3" href="#aboutus">About Us</a></li>
+                <li><a class="grey-text text-lighten-3" href="admin/index.php">Login</a></li>
+                <li><a class="grey-text text-lighten-3" href="#signin">Sign In</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-          </ul>
+        <div class="footer-copyright">
+          <div class="container center">
+            Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;"><path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z" fill="#e25555"></path></svg> by <a href="#" style="text-decoration: none;color: white;"><i class="fa fa-github" style="font-size:20px;color:white;"></i> Team Quarantine Meals</a>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        © 2014 Copyright Text
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-      </div>
-    </div>
-  </footer>
+      </footer>
   <!-- end:Footer -->
   <script type="text/javascript">
     $(document).ready(function() {
