@@ -116,6 +116,10 @@ if (isset($_POST['save_changes'])) {
         .input-field .prefix.active {
             color: orange !important;
         }
+
+        .left_padding{
+            padding-left: 4vw !important;
+        }
     </style>
 </head>
 
@@ -126,18 +130,17 @@ if (isset($_POST['save_changes'])) {
         </div>
         <br>
         <div class="row">
-            <div class="col s12 m3">
-                <div class="pg-image center">
+            <div class="col s12 m4 left_padding">
+                <div class="pg-image center ">
                     <img class="responsive-img" src=<?php echo "uploads/" . $food['food_img'] ?>>
                 </div>
                 <div class="pg-content">
                     <h4><?php echo $food['food_name']; ?></h4>
-                    <h6>DESCRPTION: <?php echo $food['food_desc']; ?></h6>
-                    <h6>PRICE: RS. <?php echo $food['food_price']; ?></h6>
-                    <h6>RATING: <?php echo $food['food_rating']; ?></h6>
+                    <h6 class="section">DESCRPTION: <?php echo $food['food_desc']; ?></h6>
+                    <h6 class="section">PRICE: &#8377; <?php echo $food['food_price']; ?></h6>
                 </div>
             </div>
-            <div class="col s12 m9">
+            <div class="col s12 m8">
                 <form action="edit_food.php" class="container section" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col s12 m6 input-field">

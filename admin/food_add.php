@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
                     <input type="number" id="food_price" name="food_price" required>
                 </div>
                 <div class="col s12 m6 input-field">
-                    <label for="food_img"></label>
+                    <label for="food_img" style="margin-top:15px;">Food image</label>
                     <input type="file" name="food_img" required>
                 </div>
             </div>

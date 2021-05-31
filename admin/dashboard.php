@@ -144,9 +144,8 @@ $my_orders = mysqli_fetch_all($result_o, MYSQLI_ASSOC);
                         </div>
                         <div class="card-content">
                             <span class="card-title"><?php echo $food['food_name']; ?></span>
-                            <p class="truncate">DESC:<strong> <?php echo $food['food_desc']; ?></strong></p>
-                            <p>PRICE: RS. <strong> <?php echo $food['food_price']; ?></strong></p>
-                            <p>RATING: <strong><?php echo $food['food_rating']; ?></strong></p>
+                            <p class="truncate section">DESC:<strong> <?php echo $food['food_desc']; ?></strong></p>
+                            <p class="section">PRICE: <strong> &#8377;  <?php echo $food['food_price']; ?></strong></p>
                         </div>
                     </div>
                 </div>

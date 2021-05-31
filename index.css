@@ -137,6 +137,10 @@ nav {
 
 }
 
+.about-img{
+    width:100%;
+}
+
 #aboutus  h1 {
     font-size: 2.4rem;
     font-family: 'Patrick Hand', cursive;

@@ -229,6 +229,16 @@ if (isset($_POST['chef_reg'])) {
         body {
             background: whitesmoke;
         }
+
+        .input-field textarea:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        /* textarea focus color */
+        .input-field textarea:focus+label {
+            color: orange !important;
+        }
     </style>
 
 </head>
@@ -237,7 +247,7 @@ if (isset($_POST['chef_reg'])) {
     <section class="section">
         <h3 class="center">Sign-up as a home chef</h3>
         <div class="container">
-            <form action="chef_reg.php" method="POST" class="section">
+            <form action="chef_reg.php" method="POST" class="section" enctype="multipart/form-data">
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input type="text" id="chef_name" name="chef_name" value="<?php echo htmlspecialchars($chef_name) ?>">
@@ -277,72 +287,88 @@ if (isset($_POST['chef_reg'])) {
                             <?php echo $chef_password_error ?>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <h6>Delivery mode</h6>
-                            <div class="row">
-                                <label for="home_del" class="col s6 m3">
-                                    <input type="checkbox" name="home_del" class="filled-in" value="true" id="home_del" <?php echo $check_delivery_type['home_del'] ?>>
-                                    <span>Home Delivery</span>
-                                </label>
-                                <label for="self_pick" class="col s6 m3">
-                                    <input type="checkbox" name="self_pick" class="filled-in" value="true" id="self_pick" <?php echo $check_delivery_type['self_pick'] ?>>
-                                    <span>Self-Pickup</span>
-                                </label>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <label for="chef_desc">Tell about yourself</label>
+                        <textarea class="materialize-textarea" name="chef_desc" id="chef_desc" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h6>Delivery mode</h6>
+                        <div class="row">
+                            <label for="home_del" class="col s6 m3">
+                                <input type="checkbox" name="home_del" class="filled-in" value="true" id="home_del" <?php echo $check_delivery_type['home_del'] ?>>
+                                <span>Home Delivery</span>
+                            </label>
+                            <label for="self_pick" class="col s6 m3">
+                                <input type="checkbox" name="self_pick" class="filled-in" value="true" id="self_pick" <?php echo $check_delivery_type['self_pick'] ?>>
+                                <span>Self-Pickup</span>
+                            </label>
                         </div>
                     </div>
-                    <div class="red-text">
-                        <?php echo htmlspecialchars($delivery_error) ?>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <h6>Meal Options</h6>
-                            <div class="row">
-                                <label for="breakfast" class="col s6 m3">
-                                    <input type="checkbox" name="breakfast" class="filled-in" value="true" id="breakfast" <?php echo $check_meal_option['breakfast'] ?>>
-                                    <span>Breakfast</span>
-                                </label>
-                                <label for="lunch" class="col s6 m3">
-                                    <input type="checkbox" name="lunch" class="filled-in" value="true" id="lunch" <?php echo $check_meal_option['lunch'] ?>>
-                                    <span>Lunch</span>
-                                </label>
-                                <label for="dinner" class="col s6 m3">
-                                    <input type="checkbox" name="dinner" class="filled-in" value="true" id="dinner" <?php echo $check_meal_option['dinner'] ?>>
-                                    <span>Dinner</span>
-                                </label>
-                            </div>
+                </div>
+                <div class="red-text">
+                    <?php echo htmlspecialchars($delivery_error) ?>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h6>Meal Options</h6>
+                        <div class="row">
+                            <label for="breakfast" class="col s6 m3">
+                                <input type="checkbox" name="breakfast" class="filled-in" value="true" id="breakfast" <?php echo $check_meal_option['breakfast'] ?>>
+                                <span>Breakfast</span>
+                            </label>
+                            <label for="lunch" class="col s6 m3">
+                                <input type="checkbox" name="lunch" class="filled-in" value="true" id="lunch" <?php echo $check_meal_option['lunch'] ?>>
+                                <span>Lunch</span>
+                            </label>
+                            <label for="dinner" class="col s6 m3">
+                                <input type="checkbox" name="dinner" class="filled-in" value="true" id="dinner" <?php echo $check_meal_option['dinner'] ?>>
+                                <span>Dinner</span>
+                            </label>
                         </div>
                     </div>
-                    <div class="red-text">
-                        <?php echo htmlspecialchars($meal_option_error) ?>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <h6>What type of food do you sell?</h6>
-                            <div class="row">
-                                <label for="veg" class="col s6 m3">
-                                    <input type="radio" class="with-gap" id="veg" name="food_type" value="veg" <?php echo $radio_box['veg'] ?>>
-                                    <span>Only VEG</span>
-                                </label>
-                                <label for="non_veg" class="col s6 m3">
-                                    <input type="radio" class="with-gap" id="non_veg" name="food_type" value="non_veg" <?php echo $radio_box['non_veg'] ?>>
-                                    <span>Only NON-VEG</span>
-                                </label>
-                                <label for="both" class="col s6 m3">
-                                    <input type="radio" class="with-gap" id="both" name="food_type" value="both" <?php echo $radio_box['both'] ?>>
-                                    <span>BOTH</span>
-                                </label>
-
-                            </div>
-                            <div class="red-text">
-                                <?php echo htmlspecialchars($food_type_error) ?>
-                            </div>
+                </div>
+                <div class="red-text">
+                    <?php echo htmlspecialchars($meal_option_error) ?>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h6>What type of food do you sell?</h6>
+                        <div class="row">
+                            <label for="veg" class="col s6 m3">
+                                <input type="radio" class="with-gap" id="veg" name="food_type" value="veg" <?php echo $radio_box['veg'] ?>>
+                                <span>Only VEG</span>
+                            </label>
+                            <label for="non_veg" class="col s6 m3">
+                                <input type="radio" class="with-gap" id="non_veg" name="food_type" value="non_veg" <?php echo $radio_box['non_veg'] ?>>
+                                <span>Only NON-VEG</span>
+                            </label>
+                            <label for="both" class="col s6 m3">
+                                <input type="radio" class="with-gap" id="both" name="food_type" value="both" <?php echo $radio_box['both'] ?>>
+                                <span>BOTH</span>
+                            </label>
+                        </div>
+                        <div class="red-text">
+                            <?php echo htmlspecialchars($food_type_error) ?>
                         </div>
                     </div>
-                    <div class="center">
-                        <input type="submit" class="btn orange" value="submit" name="chef_reg">
+                </div>
+                <div class="row">
+                    <div class="col s12 m6 input-field">
+                        <label for="chef_img" style="margin-top:15px;">Your Image / logo</label>
+                        <input type="file" name="chef_img" required>
                     </div>
+                    <div class="col s12 m6 input-field">
+                        <label for="banner_img" style="margin-top:15px;">Your banner image</label>
+                        <input type="file" name="banner_img" required>
+                    </div>
+                </div>
+                <div class="section center">
+                    <input type="submit" class="btn orange" value="submit" name="chef_reg">
+                </div>
             </form>
         </div>
     </section>

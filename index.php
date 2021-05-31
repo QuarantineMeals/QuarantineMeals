@@ -191,10 +191,10 @@ session_destroy();
 
         <div class="row">
             <div class="col s6">
-                <img src="img/chefsimage.jpg">
+                <img class="about-img" src="img/chefsimage.jpg" style="z-index:0">
             </div>
             <div class="col s6">
-                <div class="container" style="width: 40vw;">
+                <div class="container" style="width: 40vw; z-index:99999;">
                     <p>Humans have always shown resilience and strength in unity during crises — this holds true during this pandemic as well. While many are involved in coordinating and updating information regarding the availability of hospital beds and medical amenities across different locations, there have also been a good number of them who’ve been delivering nutritious, home-cooked food to COVID-19 patients, who are in home isolation, and the elderly, who are stranded at homes with no help.
                         <br><br>
                         Many have spread the information through social media, but we wanted to bring out a platform that enables user to contact the Home-chefs and get their food easily. This was how the idea of “Quarantine Meals” was born.
