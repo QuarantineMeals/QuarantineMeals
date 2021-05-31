@@ -57,6 +57,42 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .suffix:hover {
+            cursor: pointer;
+        }
+
+        .input-field label {
+            color: orange;
+        }
+
+        /* label focus color */
+        .input-field input:focus+label {
+            color: orange !important;
+        }
+
+        /* textarea underline focus color */
+        .input-field textarea:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        /* textarea focus color */
+        .input-field textarea:focus+label {
+            color: orange !important;
+        }
+
+        /* label underline focus color */
+        .input-field input:focus {
+            border-bottom: 1px solid orange !important;
+            box-shadow: 0 1px 0 0 orange !important;
+        }
+
+        /* icon prefix focus color */
+        .input-field .prefix.active {
+            color: orange !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -88,7 +124,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="center">
                 <div class="input-field">
-                    <input type="submit" class="btn" name="submit">
+                    <input type="submit" class="btn orange" name="submit">
                 </div>
             </div>
 
