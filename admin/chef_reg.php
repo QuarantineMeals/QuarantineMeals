@@ -5,8 +5,8 @@ session_start();
 $radio_box = ['veg' => "", "non_veg" => "", "both" => ""];
 $check_delivery_type = ['self_pick' => '', 'home_del' => ''];
 $check_meal_option = ['breakfast' => '', 'lunch' => '', 'dinner' => ''];
-$chef_name = $chef_address = $chef_city = $chef_number = $chef_mail = $chef_password = $food_type = $breakfast = $lunch = $dinner = $self_pick = $home_del = "";
-$chef_name_error = $chef_address_error = $chef_city_error = $chef_password_error = $chef_number_error = $chef_mail_error = "";
+$chef_name = $chef_address = $chef_desc = $chef_city = $chef_number = $chef_mail = $chef_password = $food_type = $breakfast = $lunch = $dinner = $self_pick = $home_del = "";
+$chef_name_error = $chef_address_error = $chef_desc_error = $chef_city_error = $chef_password_error = $chef_number_error = $chef_mail_error = "";
 $food_type_error = $delivery_error = $meal_option_error = "";
 $is_error = false;
 if (isset($_POST['chef_reg'])) {
@@ -16,6 +16,7 @@ if (isset($_POST['chef_reg'])) {
     $chef_number = mysqli_real_escape_string($conn, $_POST['chef_number']);
     $chef_mail = mysqli_real_escape_string($conn, $_POST['chef_mail']);
     $chef_password = mysqli_real_escape_string($conn, $_POST['chef_password']);
+    $chef_desc = mysqli_real_escape_string($conn, $_POST['chef_desc']);
     if (isset($_POST['food_type'])) {
         $food_type = mysqli_real_escape_string($conn, $_POST['food_type']);
     }
@@ -40,6 +41,10 @@ if (isset($_POST['chef_reg'])) {
     }
     if (empty($chef_address)) {
         $chef_address_error = "Please enter your address";
+        $is_error = true;
+    }
+    if (empty($chef_desc)) {
+        $chef_desc_error = "Please enter Something about you";
         $is_error = true;
     }
     if (empty($chef_password)) {
@@ -107,7 +112,32 @@ if (isset($_POST['chef_reg'])) {
             $check_delivery_type['self_pick'] = 'checked';
         }
     }
-    if ($is_error == false) {
+    $chef_img = $_FILES["chef_img"]["name"];
+    $tmp_name1 = $_FILES['chef_img']['tmp_name'];
+    $folder = "images/" . $chef_img;
+    if ($_FILES["chef_img"]["size"] > 1000000) {
+        echo "Sorry, your file is too large.";
+        $error['chef_img'] = 'File size is too large(maximum limit is 1MB)';
+    }
+    $img_ex1 = pathinfo($chef_img, PATHINFO_EXTENSION);
+    $img_ex_lc1 = strtolower($img_ex1);
+    $allowed_exs = array("jpg", "jpeg", "png");
+    $banner_img = $_FILES["banner_img"]["name"];
+    $tmp_name2 = $_FILES['banner_img']['tmp_name'];
+    $folder = "images/" . $banner_img;
+    if ($_FILES["banner_img"]["size"] > 1000000) {
+        echo "Sorry, your file is too large.";
+        $error['banner_img'] = 'File size is too large(maximum limit is 1MB)';
+    }
+    $img_ex2 = pathinfo($banner_img, PATHINFO_EXTENSION);
+    $img_ex_lc2 = strtolower($img_ex2);
+    if ($is_error == false && in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
+        $new_img_name1 = uniqid("IMG-", true) . '.' . $img_ex_lc1;
+        $img_upload_path1 = 'uploads/' . $new_img_name1;
+        move_uploaded_file($tmp_name1, $img_upload_path1);
+        $new_img_name2 = uniqid("IMG-", true) . '.' . $img_ex_lc2;
+        $img_upload_path2 = 'uploads/' . $new_img_name2;
+        move_uploaded_file($tmp_name2, $img_upload_path2);
         $delivery_option = $meal_option  = "";
         if (!empty($home_del)) {
             $delivery_option .= 'home_del ';
@@ -124,7 +154,7 @@ if (isset($_POST['chef_reg'])) {
         if (!empty($dinner)) {
             $meal_option .= 'dinner';
         }
-        $sql = "INSERT INTO chef (chef_password,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type) VALUES ('$chef_password','$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type');";
+        $sql = "INSERT INTO chef (chef_password,chef_name,chef_mail,chef_address,chef_number,chef_city,meal_option,delivery_option,food_type, chef_img,banner_img, chef_desc) VALUES ('$chef_password','$chef_name','$chef_mail','$chef_address','$chef_number','$chef_city','$meal_option','$delivery_option','$food_type','$new_img_name1','$new_img_name2','$chef_desc');";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             header('Location: ../admin');
@@ -292,6 +322,9 @@ if (isset($_POST['chef_reg'])) {
                     <div class="col s12 input-field">
                         <label for="chef_desc">Tell about yourself</label>
                         <textarea class="materialize-textarea" name="chef_desc" id="chef_desc" cols="30" rows="10"></textarea>
+                        <div class="red-text">
+                            <?php echo $chef_desc_error ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

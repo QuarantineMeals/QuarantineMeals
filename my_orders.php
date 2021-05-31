@@ -8,7 +8,10 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM orders WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $sql);
 $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
+$order_id_array = array();
+foreach ($orders as $o) {
+    $order_id_array[] = $o['order_id'];
+}
 if (isset($_GET['cancel_id'])) {
     $cancel_id = mysqli_real_escape_string($conn, $_GET['cancel_id']);
     $sql_c = "DELETE from orders where order_id='$cancel_id'";
@@ -38,16 +41,19 @@ if (isset($_GET['cancel_id'])) {
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            $('#yes').hide();
-            $('#no').hide();
             $('.modal').modal();
-            $('#enjoy_yes').click(function() {
-                $('#yes').show();
-                $("#temp1").hide();
+            var order_ids = <?php echo json_encode($order_id_array); ?>;
+            $.each(order_ids,function(index, item){
+                $("#yes_"+item).hide();
+                $("#no_"+item).hide();
+                $('#enjoy_yes_'+item).click(function() {
+                $('#yes_'+item).show();
+                $("#temp1_"+item).hide();
             });
-            $('#enjoy_no').click(function() {
-                $('#no').show();
-                $("#temp1").hide();
+            $('#enjoy_no_'+item).click(function() {
+                $('#no_'+item).show();
+                $("#temp1_"+item).hide();
+            });
             });
         });
     </script>
@@ -160,18 +166,18 @@ if (isset($_GET['cancel_id'])) {
                                     <p>Status : <?php echo $status; ?></p>
                                     <p>Last modification on : <?php echo $created_at; ?></p>
                                     <?php if ($status == "Delivered") : ?>
-                                        <div id="temp1">
+                                        <div id=<?php echo "temp1_" . $order_id ?>>
                                             <h5>Have you enjoyed your meals?</h5>
-                                            <span id="enjoy_no" class="btn-small btn-flat">No</span>
-                                            <span href="" id="enjoy_yes" class="btn-small green">Yes</span>
+                                            <span id=<?php echo "enjoy_no_" . $order_id ?> class="btn-small btn-flat">No</span>
+                                            <span href="" id=<?php echo "enjoy_yes_" . $order_id ?> class="btn-small green">Yes</span>
                                         </div>
-                                        <div id="yes">
+                                        <div id=<?php echo "yes_" . $order_id ?>>
                                             <div class="section green-text">
                                                 <h4>Thank you for using Quarantine Meals!</h4>
                                                 <h4>We're happy to hear that!</h4>
                                             </div>
                                         </div>
-                                        <div id="no">
+                                        <div id=<?php echo "no_" . $order_id ?>>
                                             <div class="section orange-text">
                                                 <h4>We'll try to improve user experience!</h4>
                                                 <h4>We're sorry to hear about that!</h4>
@@ -189,7 +195,15 @@ if (isset($_GET['cancel_id'])) {
             </table>
         </div>
     </div>
-
+    <!-- <script>
+        window.onload = function(){
+            var order_ids = ;
+            for (var i = 0; i < order_ids.length; i++) {
+                document.getElementById("yes_" + order_ids[i]).style.display = "block" ? 'none' : 'none';
+                console.log("yes_" + order_ids[i]);
+            }
+        }
+    </script> -->
 
 </body>
 
