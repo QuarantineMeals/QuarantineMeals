@@ -18,7 +18,7 @@ foreach ($orders as $o) {
         if ($food_status == 1) {
             $cur_food_status = "Yet to be packed";
         } elseif ($food_status == 2) {
-            $cur_food_status = "dispatched";
+            $cur_food_status = "Dispatched";
         } else {
             $cur_food_status = "Delivered";
         }
@@ -150,7 +150,7 @@ foreach ($orders as $o) {
                                         <select name=<?php echo "food_status-" . $order_id ?> id="food_status">
                                             <option value="" disabled selected><?php echo $status ?></option>
                                             <option value="1">Yet to be packed</option>
-                                            <option value="2">dispatched</option>
+                                            <option value="2">Dispatched</option>
                                             <option value="3">Delivered</option>
                                         </select>
                                     </div>

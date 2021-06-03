@@ -143,7 +143,7 @@ $my_orders = mysqli_fetch_all($result_o, MYSQLI_ASSOC);
                             <a class="btn-floating halfway-fab orange" href=<?php echo "edit_food.php?food_id=" . $food['food_id']; ?>><i class="far fa-edit"></i></a>
                         </div>
                         <div class="card-content">
-                            <span class="card-title"><?php echo $food['food_name']; ?></span>
+                            <span class="truncate card-title"><?php echo $food['food_name']; ?></span>
                             <p class="truncate section">DESC:<strong> <?php echo $food['food_desc']; ?></strong></p>
                             <p class="section">PRICE: <strong> &#8377;  <?php echo $food['food_price']; ?></strong></p>
                         </div>

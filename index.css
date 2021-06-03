@@ -27,15 +27,18 @@ nav {
     color: black !important;
 }
 
-
 /* Header */
 
 #index-header {
     background: url(img/bgimg.jpg);
     background-size: cover;
     background-position: center;
-    min-height: 700px;
+    height: 100vh;
 }
+
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 .index-container {
     padding-top: 100px;
@@ -102,10 +105,9 @@ nav {
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
-
 }
 
-#our-chefs  h1 {
+#our-chefs h1 {
     font-size: 2.4rem;
     font-family: 'Patrick Hand', cursive;
 }
@@ -117,13 +119,12 @@ nav {
     font-size: 1.25rem;
 }
 
-
 .chef-img {
     width: 30vw;
     height: 60vh;
 }
 
-.quote1{
+.quote1 {
     width: 40vw;
     height: 60vh;
 }
@@ -134,22 +135,20 @@ nav {
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
-
 }
 
-.about-img{
-    width:100%;
+.about-img {
+    width: 100%;
 }
 
-#aboutus  h1 {
+#aboutus h1 {
     font-size: 2.4rem;
     font-family: 'Patrick Hand', cursive;
 }
 
-#aboutus  p {
+#aboutus p {
     font-size: 1.3rem;
     text-align: left !important;
-
 }
 
 .teamqm {

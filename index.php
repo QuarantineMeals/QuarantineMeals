@@ -45,7 +45,7 @@ session_destroy();
                     <li><a href="#our-chefs">Our Chef Warriors</a></li>
                     <li><a href="#aboutus">About Us</a></li>
                     <li><a href="admin/index.php">Login</a></li>
-                    <li><a class='dropdown-trigger' href='#' data-target='dropdown1' id="signin">Sign In</a>
+                    <li><a class='dropdown-trigger' href='#' data-target='dropdown1' id="signin">Sign up</a>
                         <ul id='dropdown1' class='dropdown-content mild-transparent'>
                             <li><a href="admin/chef_reg.php" class="white-text drop-hover">Chef</a></li>
                             <li><a href="user_reg.php" class="white-text drop-hover">User</a></li>

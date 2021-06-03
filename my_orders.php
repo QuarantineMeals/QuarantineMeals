@@ -43,17 +43,17 @@ if (isset($_GET['cancel_id'])) {
         $(document).ready(function() {
             $('.modal').modal();
             var order_ids = <?php echo json_encode($order_id_array); ?>;
-            $.each(order_ids,function(index, item){
-                $("#yes_"+item).hide();
-                $("#no_"+item).hide();
-                $('#enjoy_yes_'+item).click(function() {
-                $('#yes_'+item).show();
-                $("#temp1_"+item).hide();
-            });
-            $('#enjoy_no_'+item).click(function() {
-                $('#no_'+item).show();
-                $("#temp1_"+item).hide();
-            });
+            $.each(order_ids, function(index, item) {
+                $("#yes_" + item).hide();
+                $("#no_" + item).hide();
+                $('#enjoy_yes_' + item).click(function() {
+                    $('#yes_' + item).show();
+                    $("#temp1_" + item).hide();
+                });
+                $('#enjoy_no_' + item).click(function() {
+                    $('#no_' + item).show();
+                    $("#temp1_" + item).hide();
+                });
             });
         });
     </script>
@@ -90,6 +90,7 @@ if (isset($_GET['cancel_id'])) {
         .btn-flat:hover {
             background-color: hsl(0, 100%, 70%);
         }
+
     </style>
 </head>
 
